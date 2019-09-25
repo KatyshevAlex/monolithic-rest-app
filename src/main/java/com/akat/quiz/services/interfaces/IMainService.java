@@ -5,7 +5,7 @@ import com.akat.quiz.model.Quiz;
 import java.util.List;
 
 public interface IMainService {
-    void test();
+    Quiz test();
 
     String whatTimeIsIt();
 

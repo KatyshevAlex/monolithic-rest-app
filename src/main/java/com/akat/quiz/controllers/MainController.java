@@ -23,8 +23,8 @@ public class MainController {
     }
 
     @GetMapping
-    public void test(){
-        service.test();
+    public Quiz test(){
+        return service.test();
     }
 
     @GetMapping("/now")

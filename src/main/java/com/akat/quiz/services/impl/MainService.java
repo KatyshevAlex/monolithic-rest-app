@@ -29,7 +29,7 @@ public class MainService implements IMainService {
     }
 
     @Override
-    public void test(){
+    public Quiz test(){
         Quiz quiz = quizRepo.save(new Quiz());
 
 
@@ -45,6 +45,8 @@ public class MainService implements IMainService {
         q2.setAnswers(Arrays.asList(a3, a4));
 
         quiz.setQuestions(Arrays.asList(q1, q2));
+
+        return quiz;
     }
 
     @Override
