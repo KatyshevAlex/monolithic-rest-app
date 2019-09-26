@@ -1,7 +1,5 @@
 package com.akat.quiz.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,13 +10,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "quizes", schema = "quiz")
+@SequenceGenerator(name = "sq_quiz", sequenceName = "sq_quiz", allocationSize = 1)
 @NoArgsConstructor
 @Getter
 @Setter
 public class Quiz {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_quiz")
     Long id;
 
 
