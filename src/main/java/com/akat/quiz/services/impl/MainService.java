@@ -33,15 +33,29 @@ public class MainService implements IMainService {
     @Override
     public Quiz test(){
         Quiz quiz = quizRepo.save(new Quiz());
+        Question q1 = new Question();
+        Question q2 = new Question();
+        q1.setQuiz(quiz);
+        q2.setQuiz(quiz);
+        questionRepo.save(q1);
+        questionRepo.save(q2);
 
-
-        Question q1= questionRepo.save(Question.builder().quiz(quiz).build());
-        Question q2= questionRepo.save(Question.builder().quiz(quiz).build());
-
-        Answer a1 = answerRepo.save(Answer.builder().answer("First").question(q1).build());
-        Answer a2 = answerRepo.save(Answer.builder().answer("Second").question(q1).build());
-        Answer a3 = answerRepo.save(Answer.builder().answer("Third").question(q2).build());
-        Answer a4 = answerRepo.save(Answer.builder().answer("Fourth").question(q2).build());
+        Answer a1 = new Answer();
+        Answer a2 = new Answer();
+        Answer a3 = new Answer();
+        Answer a4 = new Answer();
+        a1.setAnswer("First");
+        a2.setAnswer("Second");
+        a3.setAnswer("Third");
+        a4.setAnswer("Fourth");
+        a1.setQuestion(q1);
+        a2.setQuestion(q1);
+        a3.setQuestion(q2);
+        a4.setQuestion(q2);
+        answerRepo.save(a1);
+        answerRepo.save(a2);
+        answerRepo.save(a3);
+        answerRepo.save(a4);
 
         q1.setAnswers(Arrays.asList(a1, a2));
         q2.setAnswers(Arrays.asList(a3, a4));
@@ -49,11 +63,6 @@ public class MainService implements IMainService {
         quiz.setQuestions(Arrays.asList(q1, q2));
 
         return quiz;
-    }
-
-    @Override
-    public String whatTimeIsIt() {
-        return null;
     }
 
     @Override
@@ -78,10 +87,16 @@ public class MainService implements IMainService {
         return quiz;
     }
 
+    @Override
+    public void deleteQuizById(Long id) {
+        quizRepo.deleteById(id);
+    }
 
-//    @Override
-//    public Answer save(Answer a) {
-//        return answerRepo.save(a);
-//    }
+    @Override
+    public Quiz updateQuiz(Long id, Quiz quiz) {
+        Quiz q = quizRepo.getOne(id);
+        q.setQuestions(quiz.getQuestions());
+        return q;
+    }
 
 }
