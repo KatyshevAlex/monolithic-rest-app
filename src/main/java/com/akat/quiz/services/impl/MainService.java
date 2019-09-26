@@ -8,12 +8,14 @@ import com.akat.quiz.model.Question;
 import com.akat.quiz.model.Quiz;
 import com.akat.quiz.services.interfaces.IMainService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Service("MainService")
+@Profile({"production", "test"})
 public class MainService implements IMainService {
 
     private final QuizRepo quizRepo;

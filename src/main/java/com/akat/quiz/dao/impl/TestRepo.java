@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Profile("production")
-public interface QuizRepo extends JpaRepository<Quiz, Long> {
+@Profile("test")
+public interface TestRepo extends JpaRepository<Quiz,Long> {
 }
