@@ -1,0 +1,117 @@
+
+Remote debugging
+			1. Edit catalina.sh file or cbaengine-start.sh
+			2. vim <TOMCAT_DIR>/bin/catalina.sh
+			3 Find a lines where JAVA_OPTS are defined
+			4 Add the following line
+			5 JAVA_OPTS="$JAVA_OPTS -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n"
+			6 Save and close
+			7 Restart tomcat
+			8 Now you can setup remote dubugger in IDE to 8000 port
+
+
+start docker:
+	systemctl start docker
+	systemctl restart docker	
+	
+Helpful Docker commands:
+	Get a list of running containers: docker ps
+	Get container logs: docker service logs cba_request_api -f
+	Get into container: docker exec -it $(docker ps -qf "name=cassandra") cqlsh	
+	Clean up Docker: docker system prune -a
+	
+putty key:
+	https://habr.com/post/127521/
+	
+add ssh to git
+	https://www.youtube.com/watch?v=MnU1U7GCWLk
+	https://git.intech-global.com/profile/keys
+	add public key here and to Pagent
+	put private key to c:\users\username\.ssh (mkdir for create this folder)
+============================================================================================================================
+
+
+top - состояние сервера
+
+Какие порты слушаем linux:
+	netstat -tnp | grep 8003
+	
+Снять дамп:
+			tcpdump -i any dst <ip> -w  <filename.pcap>
+			tcpdump -i any port 3333 -w  <filename.pcap>
+				адреса:		sms.client.smpp.connections[0].gateway.ipAddressBase=127.0.0.1
+							sms.client.smpp.connections[0].gateway.ipAddressReserve=127.0.0.1
+							в wireshark установить фильтр по smpp
+				file -> Export Specified Packets -> (radio button) Displayed
+				установить фильтр по длине сообщения: frame.len >= 85
+
+				
+
+ps aux / ps ax  --- запущенные процессы
+ps aux | grep  Runner
+ps aux | grep  20577
+
+sudo asterisk -rvvvvvvv
+CALLCommon  - - - сколько висят на ivr 
+
+netstat  проверить порт
+
+tail -f /opt/ivr777/log/ivr.evt | grep '79677136035'
+tail -f -n100 /opt/ivr333_32/log/ivr.evt --- включить онлайн логи
+grep -a '996558110011' ivr.api.evt
+
+grep -a 'not found' /opt/ivr777/log/ivr.evt
+grep -a '/opt/ivr0784_32/content/prompt/T0' /opt/ivr0784_32/log/ivr.evt
+grep -a '998903036656' /opt/ivr0784_32/log/ivr.evt
+grep -a '79677136035' /opt/www/tomcat-api-ivr/logs/ivr/ivr.api.evt
+
+grep -a '998946145581' 
+grep -a "vmhm338255" /opt/ivr7575/log/ivr.evt
+grep -a -A10  "at java.util.Optional.orElseThrow(Optional.java:290)" /opt/ivr7575/log/ivr.evt
+zgrep -a 909228874  /opt/ivr0575_32/log/ivr.evt.2019-07-25.gz
+
+
+REST запросы из cmd - https://blog.regolit.com/2013/12/16/using-curl-for-http
+	GET:
+	curl "http://192.168.254.117:8080/ivr-service-api/dispatch/subscription?dispatch=80&msisdn=9081670638&days=60&source=0&region=9" 
+	curl "localhost:8094/operator-api/test" 
+	curl "localhost:8080/operator-api/test"
+	curl "http://localhost:8081/ivr-service-api/billing/set_pay?msisdn=998909143579&transaction_status=0"
+	POST: 
+		curl -d '{"msisdn":"+79081670638"}' -H "Content-Type: application/json" -X POST "http://127.0.0.1:8094/alice/call/"
+		curl -d '{"resultEnum":"SUCCESS","msisdn":"+79081670638","uuid":"17b00e4c-4f9d-4e6d-89cb-4bf63825f844"}' -H "Content-Type: application/json" -X POST "http://127.0.0.1:8094/alice/call/result"
+TomCat version: /opt/jdk/bin/java -cp catalina.jar org.apache.catalina.util.ServerInfo
+
+sudo mkdir FolderName
+	
+переименовать 
+	mv path/name.a path/name.b
+	
+
+показать файлы в дирректории
+		ls - всё содержимое
+		ll - files only
+		
+дописать в имя файла
+		прям в консоли первый вариант переименует из "1" в "secret_1". Второй вариант переименует в secret_1_uz 
+		for i in `ls`; do cp -a $i secret_$i; done
+		for i in `ls *.wav`; do mv $i secret_`echo $i | sed 's/yaka/_uz/'`; done		
+		
+		
+в линуксе приконнектиться к БД
+./opt/PostgreSQL/9.6/bin/psql -U postgres
+
+грепнуть файл и посчитать кол-во строк:
+
+
+
+sudo chmod +x schedulerctl  //executable
+
+sudo chmod -R 777 /opt/ivr0784_32/content/
+sudo chown -R akatyshev /opt/ivr0784_32/content/
+
+sudo chmod -R 777 /opt/www/tomcat-api-ivr
+sudo chown -R akatyshev /opt/www/tomcat-api-ivr
+
+
+		

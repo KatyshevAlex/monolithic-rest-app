@@ -1,0 +1,280 @@
+
+https://habr.com/company/luxoft/blog/270383/					- хабр Stream
+https://annimon.com/article/2778								-полное руководство Stream
+https://habr.com/company/luxoft/blog/270383/					-Optional
+https://habr.com/post/346782/									-Optional кот шредингера
+http://sboychenko.ru/java-optional/					-Optional
+https://javarush.ru/groups/posts/524-khvatit-pisatjh-ciklih-top-10-luchshikh-metodov-dlja-rabotih-s-kollekcijami-iz-java8					-new method of HeshMap
+https://javarevisited.blogspot.com/2017/08/how-to-create-thread-safe-concurrent-hashset-in-java-8.html										-concurrenct set
+https://tproger.ru/translations/java8-concurrency-tutorial-3/																				-concurrenct map
+
+
+        // Создание стрима из значений
+				Stream<String> streamFromValues = Stream.of("a1", "a2", "a3");
+				
+		// Создание стрима из массива
+			a)	Stream<String> streamFromArrays = Arrays.stream(arr);
+			b)	Stream<String> streamFromArrays1 = Stream.of(array);
+		
+		// Создание стрима из файла (каждая запись в файле = отдельная строка в стриме)
+		    а)  File file = new File("1.tmp");
+				file.deleteOnExit();
+				PrintWriter out = new PrintWriter(file);
+				out.println("a1");
+				out.println("a2");
+				out.println("a3");
+				out.close();
+				
+			b)  Stream<String> streamFromFiles = Files.lines(Paths.get(file.getAbsolutePath()));
+			
+			
+		// Создание стрима из коллекции	
+				Stream<String> streamFromCollection = collection.stream();
+			 
+		// Создание числового стрима из строки
+				IntStream streamFromString = "123".chars();
+				System.out.print("streamFromString = ");
+				streamFromString.forEach((e)->System.out.print(e + " , ")); // напечатает streamFromString = 49 , 50 , 51 ,	 
+				
+		// С помощью Stream.builder - полезно в forEach
+				Stream.Builder<String> builder = Stream.builder();
+				Stream<String> streamFromBuilder = builder.add("a1").add("a2").add("a3").build();		
+				
+		//бесконечный итератор
+			a)	  	Stream<Integer> streamFromIterate = Stream.iterate(1, n -> n + 2);
+			b)		Stream<String> streamFromGenerate = Stream.generate(() -> "a1");	//  зацыкленный вывод
+			
+			Stream.iterate(0,i->i++)
+                .limit(list.size())
+                .forEach((i)-> {
+                    if(list.get(i).getIdMelody() == idMelody){
+                        
+                    }
+                });
+/**
+	Методы стрима КОНВЕЕРНЫЕ(возвращают другой стрим для дальнейшей обработки) или  ТЕРМИНАЛЬНЫЕ(завершают работу со стримом и возвращают результат)
+	Конвеерные методы являются lazy и не выполняются пока не будет вызван терминальный метод.  
+*/		
+
+"конвеерные"
+	"filter" 	--- //фильтрует записи удовлетворяющие условию
+		collection.stream().filter(«a1»::equals).count()  
+	"skip" 	---//скипает п элементов
+		collection.stream().skip(collection.size() — 1).findFirst().orElse(«1») 
+	"distinct"	  --- //убирает дубликаты
+		collection.stream().distinct().collect(Collectors.toList())
+	"peek"	 ---//применяет функцию к каждому эл. и возвращает ТОТЖЕ стрим
+		collection.stream().map(String::toUpperCase).peek((e) -> System.out.print("," + e)).collect(Collectors.toList())
+	"map"   --- //преобразования	
+	collection.stream()."map"((s) -> s + "_1").collect(Collectors.toList()) ---//преобразует каждый элемент, возвращает стрим этих элементов
+	collection.stream()."mapToInt"((s) -> Integer.parseInt(s)).toArray() ---//преобразует в числовой стрим
+	collection.stream()."flatMap"((p) -> Arrays.asList(p.split(",")).stream()).toArray(String[]::new) ---// преобразует один элемент в несколько Оо? Интересная практика .split()
+		
+	collection.stream()."limit"(2).collect(Collectors.toList()) ---// ограничивает выборку первыми п элементами
+	
+	"sorted" ---//сортировка натурально или компоратором
+	collection.stream().sorted().collect(Collectors.toList()) 
+		
+
+
+
+"терминальные"	
+	.findFirst().orElse(«1»)  - вернет Optional первый элемент стрима
+	.findAny().orElse(«1»)    - вернет Optional любой элемент стрима
+	.collect(Collectors.toList()) - вернет коллекцию
+	.count() - вернет кол-во элементов
+	
+	"на соответствие" - true/false
+	.anyMatch(«a1»::equals) - вернет true если хоть один эл. соответствует условию
+	.noneMatch(«a8»::equals) - вернет true если условие НЕ выполняется ни для одного элементами
+	.allMatch((s) -> s.contains(«1»)) - вернет true если каждый элемент соответствует условию
+				collection.stream().anyMatch("a8"::equals);
+				collection.stream().allMatch((s) -> s.contains("1"));
+				
+				
+	.min(String::compareTo).get() - вернет минимальный элемент. Определение через компоратор
+				~~~~Вернуть Player у которого поле scores наиболее приближено !с любой стороны!(модуль)
+				int scores = 120;
+				List<Player> waiting;
+			    Player found = waiting.stream()
+                .filter(((p)-> p.cp != callProcessor && Math.abs(scores - p.scores) < Integer.MAX_VALUE))
+                .min(Comparator.comparingInt(((p) -> Math.abs(scores - p.scores))))
+                .orElse(null);
+				
+				
+				
+				
+				
+	.max(String::compareTo).get() - аннологично
+	.forEach((p) -> p.append("_1")); - применит функцию к каждому элементу - порядок НЕ гарантируют
+	.forEachOrdered((p) -> p.append("_new")); - применит функцию к каждому элементу - порядок Гарантируют
+	
+==================================================BEST PRACTICE==================================================================================
+			if you have List<Object[]>
+            ret = list.stream().map((objArr)->new DispatchSubscriber((String)objArr[0],(Integer) objArr[1],(Integer) objArr[2])).collect(Collectors.toList());	
+=================================================================================================================================================
+==================================================OPTIONAL=======================================================================================
+https://www.baeldung.com/java-optional
+String name = "baeldung";
+Optional<String> opt = Optional.ofNullable(name); //  if we expect some null values
+Optional<String> opt = Optional.of(name); //NullPointerException if name=null
+Optional<String> empty = Optional.empty();
+
+
+				~~ifPresent
+opt.isPresent() //true or false
+opt.ifPresent(name -> System.out.println(name.length()));
+
+				~~orElse
+String name = Optional.ofNullable(nullName).orElse("john"); // объект создается в любом случае! лучше юзать orElseGet c лямбдой
+
+				~~orElseGet
+lambda) String name = Optional.ofNullable(nullName).orElseGet(() -> "john");    // !!!! ВСЕГДА ЮЗАЙ ЭТОТ МЕТОД т.к. он вызывается только в случае null
+method ref) Optional.ofNullable(text).orElseGet(this::getMyDefault);
+
+				~~orElseThrow
+Optional.ofNullable(nullName).orElseThrow(IllegalArgumentException::new);
+
+
+				~~filter & map
+				public boolean priceIsInRange2(Modem modem2) {
+					 return Optional.ofNullable(modem2)
+					   .map(Modem::getPrice) //does not modify the original value
+					   .filter(p -> p >= 10 && p <= 15)
+					   .isPresent();
+				 }
+				 
+				Optional<List<String>> listOptional = Optional.of(companyNames);
+ 				int size = listOptional
+				  .map(List::size)
+				  .orElse(0);
+				  
+				  
+	Optional<?> obj; // may contain an Integer
+	Optional<Integer> objAsInt = obj
+		.filter(Integer.class::isInstance)
+		.map(Integer.class::cast);
+				  
+				  
+				  
+								 String password = " password ";
+				Optional<String> passOpt = Optional.of(password);
+				boolean correctPassword = passOpt.filter(pass -> pass.equals("password")).isPresent();
+
+ 
+				correctPassword = passOpt
+				  .map(String::trim)
+				  .filter(pass -> pass.equals("password"))
+				  .isPresent(); 
+
+				~~flatMap //разворачивает поля полученные через геттер если они тоже optional  
+				
+				    String name = personOptional
+									  .flatMap(Person::getName) //method return Optional<String>
+									  .orElse("");
+									  
+					Integer parentRid = Optional.ofNullable(obj) //каст (cast) с проверкой на null
+                            .map(Integer.class::cast)
+                            .orElse(0);
+				  
+===========================================================Path=================================================================================	
+https://www.baeldung.com/java-nio-2-path
+
+===========================================================Date to LocalDateTime=================================================================================
+                    List<Date> payments = IVRAPI.getSuccesfullPayments(ds.getIdDispatch(),msisdn);
+                    List<LocalDateTime> localPayments = payments.stream().map((o)-> Instant.ofEpochMilli(o.getTime())
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDateTime())
+                            .collect(Collectors.toList());
+
+
+
+
+===========================================================usefull==============================================================================
+//------------reverse / перевернуть
+public class App {
+    public static void main( String[] args ){
+        System.out.println("----- Best way for any type--------------------------------------------\n");
+        Stream.of("1", "2", "20", "3")
+                .collect(Collectors.toCollection(ArrayDeque::new))
+                .descendingIterator()
+                .forEachRemaining(System.out::println);
+
+        System.out.println("----- Shorter example for numbers-------------------------------------------\n");
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        list.stream()
+                .sorted(Comparator.reverseOrder())
+                .forEach(System.out::println);
+
+        System.out.println("--------------------------------------------------\n");
+        reverse(Stream.of("one", "two", "three", "four")).forEach(System.out::println);
+    }
+
+    private static Stream<String> reverse(Stream<String> stream) {
+        ArrayDeque<String> stack = new ArrayDeque<>();
+        stream.forEach(stack::push);
+        //doing something e.g. UpperCase for first letter
+        String[] buf = stack.remove().split("");
+        buf[0] = buf[0].toUpperCase();
+        StringBuilder wordFromBuf = new StringBuilder();
+        Arrays.stream(buf).forEach(wordFromBuf::append);
+        stack.addFirst(wordFromBuf.toString());
+        //end of doing
+        return stack.stream();
+    }
+}
+
+
+===========================================================string to char / string to strings==============================================================================
+String str = "abcdef";
+Stream<char> streamChar = str.chars().mapToObj(c -> (char) c);
+Stream<String> streamStrings = str.chars().mapToObj(c -> String.valueOf((char) c));
+
+===========================================================   split string to properties   ==============================================================================
+            HashMap<String, String> map = (HashMap<String, String>) Arrays.stream(params.split(", "))
+                    .map(s -> s.split("="))
+                    .collect(Collectors.toMap(e -> e[0], e -> e[1]));
+
+===========================================================   Make and run thread   ==============================================================================
+        new Thread(() -> {
+                System.out.println("Thread is run");
+        }).start();
+
+===========================================================   Pair   ==============================================================================
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+public class Pair <K, V> {
+    private K key;
+    private V value;
+}
+
+===========================================================   send http request   ==============================================================================
+URL url = new URL("http://www.example.com/resource");
+HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+httpCon.setDoOutput(true);
+httpCon.setRequestMethod("PUT");
+OutputStreamWriter out = new OutputStreamWriter(
+    httpCon.getOutputStream());
+out.write("Resource content");
+out.close();
+httpCon.getInputStream();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			  
