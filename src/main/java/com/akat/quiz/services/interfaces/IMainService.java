@@ -14,4 +14,6 @@ public interface IMainService {
     void deleteQuizById(Long id);
 
     Quiz updateQuiz(Long id, Quiz quiz);
+
+    Quiz getQuizById(Long id);
 }

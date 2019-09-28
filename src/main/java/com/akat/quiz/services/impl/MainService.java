@@ -99,4 +99,9 @@ public class MainService implements IMainService {
         return q;
     }
 
+    @Override
+    public Quiz getQuizById(Long id) {
+        return quizRepo.getOne(id);
+    }
+
 }

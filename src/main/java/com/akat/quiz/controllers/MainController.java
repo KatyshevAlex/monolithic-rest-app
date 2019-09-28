@@ -35,6 +35,11 @@ public class MainController {
         return service.saveQuiz(quiz);
     }
 
+    @GetMapping("/get-quiz/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Quiz getQuizById(@PathVariable("id") Long id){
+        return service.getQuizById(id);
+    }
 
     @DeleteMapping("/delete-quiz/{id}")
     @ResponseStatus(HttpStatus.OK)
