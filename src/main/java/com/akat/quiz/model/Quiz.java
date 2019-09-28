@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "quizes", schema = "quiz")
+@Table(name = "quizzes", schema = "quiz")
 @SequenceGenerator(name = "sq_quiz", sequenceName = "sq_quiz", allocationSize = 1)
 @Getter
 @Setter
