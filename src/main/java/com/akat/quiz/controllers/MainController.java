@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/quiz")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MainController {
 
     private final IMainService service;
