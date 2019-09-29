@@ -36,7 +36,11 @@ public class MainService implements IMainService {
         Question q1 = new Question();
         Question q2 = new Question();
         q1.setQuiz(quiz);
+        q1.setRightAnswerId(3);
+        q1.setQuestion("AAAAAAAAAAAAAA");
         q2.setQuiz(quiz);
+        q2.setRightAnswerId(2);
+        q2.setQuestion("BBBBBBBBBBBBBBB");
         questionRepo.save(q1);
         questionRepo.save(q2);
 
@@ -44,10 +48,10 @@ public class MainService implements IMainService {
         Answer a2 = new Answer();
         Answer a3 = new Answer();
         Answer a4 = new Answer();
-        a1.setAnswer("First");
-        a2.setAnswer("Second");
-        a3.setAnswer("Third");
-        a4.setAnswer("Fourth");
+        a1.setText("First");
+        a2.setText("Second");
+        a3.setText("Third");
+        a4.setText("Fourth");
         a1.setQuestion(q1);
         a2.setQuestion(q1);
         a3.setQuestion(q2);

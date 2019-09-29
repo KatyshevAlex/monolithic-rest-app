@@ -21,7 +21,7 @@ public class Answer {
     Long id;
 
     @Column(name = "answer")
-    String answer;
+    String text;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)

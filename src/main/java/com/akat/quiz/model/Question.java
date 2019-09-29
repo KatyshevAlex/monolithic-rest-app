@@ -21,6 +21,12 @@ public class Question {
     @Column(name = "id")
     Long id;
 
+    @Column(name = "question")
+    String question;
+
+    @Column(name = "right_answer_id")
+    Integer rightAnswerId;
+
     @OneToMany(mappedBy="question", fetch=FetchType.EAGER, cascade = {CascadeType.ALL})
     List<Answer> answers;
 

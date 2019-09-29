@@ -33,6 +33,7 @@ public class MainController {
     @PostMapping("/create-quiz")
     @ResponseStatus(HttpStatus.CREATED)
     public Quiz createQuiz(@RequestBody Quiz quiz ) {
+        System.out.println(quiz);
         return service.saveQuiz(quiz);
     }
 
