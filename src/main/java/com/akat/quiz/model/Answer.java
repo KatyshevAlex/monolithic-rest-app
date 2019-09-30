@@ -15,13 +15,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Answer {
 
+    @Column(name = "answer")
+    String text;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_answer")
     @Column(name = "id")
     Long id;
-
-    @Column(name = "answer")
-    String text;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)

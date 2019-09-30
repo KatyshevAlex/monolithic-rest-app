@@ -76,14 +76,13 @@ public class MainService implements IMainService {
 
     @Override
     public Quiz saveQuiz(Quiz quiz) {
-        quizRepo.saveAndFlush(new Quiz());
-
-        quiz.getQuestions().forEach((question) ->{ // for each question in the quiz we must do two operations:
-            questionRepo.save(question); //firstly save the question for getting ID
-            System.out.println(question);
-            question.getAnswers().forEach((answer) -> {
+        Quiz quizWithId = quizRepo.save(quiz);
+        quiz.getQuestions().stream().peek((question) ->{ // for each question in the quiz we must do two operations:
+            question.setQuiz(quizWithId); // assign Quiz by id
+            questionRepo.saveAndFlush(question); //save the question for getting ID
+            question.getAnswers().stream().peek((answer) -> {
                 answer.setQuestion(question); //here we assign the question for  the answer
-                answerRepo.save(answer);
+                answerRepo.saveAndFlush(answer);
             });
 
         });
