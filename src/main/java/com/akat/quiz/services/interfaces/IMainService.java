@@ -1,5 +1,6 @@
 package com.akat.quiz.services.interfaces;
 
+import com.akat.quiz.annotations.LogExecutionTime;
 import com.akat.quiz.model.Quiz;
 
 import java.util.List;
@@ -7,8 +8,10 @@ import java.util.List;
 public interface IMainService {
     Quiz test();
 
+    @LogExecutionTime
     List<Quiz> getAllQuizzes();
 
+    @LogExecutionTime
     Quiz saveQuiz(Quiz quiz);
 
     void deleteQuizById(Long id);

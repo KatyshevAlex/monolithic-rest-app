@@ -40,11 +40,11 @@ https://tproger.ru/translations/java8-concurrency-tutorial-3/																			
 				Stream.Builder<String> builder = Stream.builder();
 				Stream<String> streamFromBuilder = builder.add("a1").add("a2").add("a3").build();		
 				
-		//бесконечный итератор
+		//безконечный итератор  //endless iterator
 			a)	  	Stream<Integer> streamFromIterate = Stream.iterate(1, n -> n + 2);
 			b)		Stream<String> streamFromGenerate = Stream.generate(() -> "a1");	//  зацыкленный вывод
 			
-			Stream.iterate(0,i->i++)
+			Stream.iterate(0,i->i+1)
                 .limit(list.size())
                 .forEach((i)-> {
                     if(list.get(i).getIdMelody() == idMelody){
