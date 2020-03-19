@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 public interface PrivilegeRepo extends JpaRepository<Privilege, Long> {
 
     @LogExecutionTime
-    @Query(value = "SELECT * FROM privileges a WHERE a.action = :action ORDER BY id ASC LIMIT 1",
+    @Query(value = "SELECT * FROM security.privileges a WHERE a.privilege_type = :type ORDER BY id ASC LIMIT 1",
             nativeQuery = true)
-    Privilege findByAction(@Param("action") String action);
+    Privilege findByType(@Param("type") String type);
 }

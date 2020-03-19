@@ -1,17 +1,21 @@
 package com.akat.quiz.model.security;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "users", schema = "security")
+@SequenceGenerator(name = "sq_users", sequenceName = "sq_users", allocationSize = 1, schema = "security")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_users")
+    @Column(name = "id")
     private Long id;
 
     private String firstName;

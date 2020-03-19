@@ -9,10 +9,10 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "questions", schema = "quiz")
-@SequenceGenerator(name = "sq_question", sequenceName = "sq_question", allocationSize = 1, schema = "quiz")
 @Data
 @NoArgsConstructor
+@Table(name = "questions", schema = "quiz")
+@SequenceGenerator(name = "sq_questions", sequenceName = "sq_questions", allocationSize = 1, schema = "quiz")
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_question")

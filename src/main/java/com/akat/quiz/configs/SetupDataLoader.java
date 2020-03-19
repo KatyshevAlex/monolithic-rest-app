@@ -5,9 +5,9 @@ import com.akat.quiz.dao.impl.security.RoleRepo;
 import com.akat.quiz.dao.impl.security.UserRepo;
 import com.akat.quiz.model.security.Privilege;
 import com.akat.quiz.model.security.Role;
+import com.akat.quiz.model.security.User;
 import com.akat.quiz.model.security.enums.PrivilegeType;
 import com.akat.quiz.model.security.enums.RoleType;
-import com.akat.quiz.model.security.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -43,22 +43,21 @@ public class SetupDataLoader implements
 
         if (alreadySetup)
             return;
-//        Privilege readPrivilege = createPrivilegeIfNotFound(PrivilegeType.READ);
-//        Privilege writePrivilege = createPrivilegeIfNotFound(PrivilegeType.WRITE);
-//
-//        List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege);
-//        createRoleIfNotFound(RoleType.ADMIN, adminPrivileges);
-//        createRoleIfNotFound(RoleType.USER, Arrays.asList(readPrivilege));
-//
-//        Role adminRole = roleRepo.findByRoleType(RoleType.ADMIN.toString());
-//        User user = new User();
-//        user.setFirstName("FirstName");
-//        user.setLastName("LastName");
-//        user.setPassword(passwordEncoder.encode("test"));
-//        user.setEmail("test@test.com");
-//        user.setRoles(Arrays.asList(adminRole));
-//        user.setEnabled(true);
-//        userRepo.save(user);
+        Privilege readPrivilege = createPrivilegeIfNotFound(PrivilegeType.READ);
+        Privilege writePrivilege = createPrivilegeIfNotFound(PrivilegeType.WRITE);
+
+        createRoleIfNotFound(RoleType.ADMIN, Arrays.asList(readPrivilege, writePrivilege));
+        createRoleIfNotFound(RoleType.USER, Arrays.asList(readPrivilege));
+
+        Role adminRole = roleRepo.findByRoleType(RoleType.ADMIN.toString());
+        User user = new User();
+        user.setFirstName("FirstName");
+        user.setLastName("LastName");
+        user.setPassword(passwordEncoder.encode("test"));
+        user.setEmail("test@test.com");
+        user.setRoles(Arrays.asList(adminRole));
+        user.setEnabled(true);
+        userRepo.save(user);
 
         alreadySetup = true;
     }
@@ -66,7 +65,7 @@ public class SetupDataLoader implements
     @Transactional
     private Privilege createPrivilegeIfNotFound(PrivilegeType pt) {
 
-        Privilege privilege = privilegeRepo.findByAction(pt.getAction());
+        Privilege privilege = privilegeRepo.findByType(pt.toString());
         if (privilege == null) {
             privilege = new Privilege(pt);
             privilegeRepo.save(privilege);
@@ -79,7 +78,7 @@ public class SetupDataLoader implements
 
         Role role = roleRepo.findByRoleType(roleType.toString());
         if (role == null) {
-            role = new Role(RoleType.USER);
+            role = new Role(roleType);
             role.setPrivileges(privileges);
             roleRepo.save(role);
         }

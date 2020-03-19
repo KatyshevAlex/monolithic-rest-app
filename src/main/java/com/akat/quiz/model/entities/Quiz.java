@@ -8,10 +8,10 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "quizzes", schema = "quiz")
-@SequenceGenerator(name = "sq_quiz", sequenceName = "sq_quiz", allocationSize = 1, schema = "quiz")
 @Data
 @NoArgsConstructor
+@Table(name = "quizzes", schema = "quiz")
+@SequenceGenerator(name = "sq_quizzes", sequenceName = "sq_quizzes", allocationSize = 1, schema = "quiz")
 public class Quiz {
 
     @Id

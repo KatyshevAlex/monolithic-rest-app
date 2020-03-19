@@ -17,7 +17,7 @@ public class LogExecutionAspect {
         Object proceed = joinPoint.proceed();
         Long executionTime = System.currentTimeMillis() - start;
 
-        log.info("Method {} was executed in {} ms", joinPoint.getSignature().getName(), executionTime);
+        log.info("Method {} was executed in {} ms. Measured by Aspect Annotation @LogExecutionAspect", joinPoint.getSignature().getName(), executionTime);
         return proceed;
     }
 

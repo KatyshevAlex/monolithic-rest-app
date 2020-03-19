@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "answers", schema = "quiz")
-@SequenceGenerator(name = "sq_answer", sequenceName = "sq_answer", allocationSize = 1, schema = "quiz")
 @Data
 @NoArgsConstructor
+@Table(name = "answers", schema = "quiz")
+@SequenceGenerator(name = "sq_answers", sequenceName = "sq_answers", allocationSize = 1, schema = "quiz")
 public class Answer {
 
     @Column(name = "answer")
