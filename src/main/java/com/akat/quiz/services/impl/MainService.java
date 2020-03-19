@@ -1,11 +1,11 @@
 package com.akat.quiz.services.impl;
 
-import com.akat.quiz.dao.impl.AnswerRepo;
-import com.akat.quiz.dao.impl.QuestionRepo;
-import com.akat.quiz.dao.impl.QuizRepo;
-import com.akat.quiz.model.Answer;
-import com.akat.quiz.model.Question;
-import com.akat.quiz.model.Quiz;
+import com.akat.quiz.dao.impl.quiz.AnswerRepo;
+import com.akat.quiz.dao.impl.quiz.QuestionRepo;
+import com.akat.quiz.dao.impl.quiz.QuizRepo;
+import com.akat.quiz.model.entities.Answer;
+import com.akat.quiz.model.entities.Question;
+import com.akat.quiz.model.entities.Quiz;
 import com.akat.quiz.services.interfaces.IMainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;

@@ -1,6 +1,7 @@
 package com.akat.quiz.controllers;
 
-import com.akat.quiz.model.Quiz;
+import com.akat.quiz.model.entities.Quiz;
+import com.akat.quiz.model.security.enums.RoleType;
 import com.akat.quiz.services.interfaces.IMainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +22,13 @@ public class MainController {
     }
 
     @GetMapping
-    public Quiz test(){
+    public Quiz makeDefaultValues(){
         return service.test();
+    }
+
+    @GetMapping("test")
+    public String[] test2() {
+        return RoleType.USER.getThisAndHigherPriorities();
     }
 
     @GetMapping("/all-quizzes")

@@ -1,0 +1,3 @@
+CREATE SCHEMA quiz AUTHORIZATION postgres;
+
+CREATE SCHEMA security AUTHORIZATION postgres;

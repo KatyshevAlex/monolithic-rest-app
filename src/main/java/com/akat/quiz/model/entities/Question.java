@@ -1,9 +1,8 @@
-package com.akat.quiz.model;
+package com.akat.quiz.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,9 +10,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "questions", schema = "quiz")
-@SequenceGenerator(name = "sq_question", sequenceName = "sq_question", allocationSize = 1)
-@Getter
-@Setter
+@SequenceGenerator(name = "sq_question", sequenceName = "sq_question", allocationSize = 1, schema = "quiz")
+@Data
 @NoArgsConstructor
 public class Question {
     @Id

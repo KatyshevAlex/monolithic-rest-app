@@ -1,7 +1,7 @@
 package com.akat.quiz.services.interfaces;
 
 import com.akat.quiz.annotations.LogExecutionTime;
-import com.akat.quiz.model.Quiz;
+import com.akat.quiz.model.entities.Quiz;
 
 import java.util.List;
 
