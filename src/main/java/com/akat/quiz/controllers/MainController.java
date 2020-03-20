@@ -1,8 +1,11 @@
 package com.akat.quiz.controllers;
 
 import com.akat.quiz.model.entities.Quiz;
+import com.akat.quiz.model.security.User;
+import com.akat.quiz.model.security.UserDto;
 import com.akat.quiz.model.security.enums.RoleType;
 import com.akat.quiz.services.interfaces.IMainService;
+import com.akat.quiz.services.interfaces.ISecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,50 +17,53 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class MainController {
 
-    private final IMainService service;
+    private final IMainService mainService;
+    private final ISecurityService securedService;
 
     @Autowired
-    public MainController(IMainService service) {
-        this.service = service;
+    public MainController(IMainService mainService, ISecurityService securedService) {
+        this.mainService = mainService;
+        this.securedService = securedService;
     }
 
     @GetMapping
-    public Quiz makeDefaultValues(){
-        return service.test();
+    public Quiz test(){
+        return mainService.test();
     }
 
-    @GetMapping("test")
-    public String[] test2() {
-        return RoleType.USER.getThisAndHigherPriorities();
+    @PostMapping("/registration")
+    public User registerUser(@RequestBody String dto) {
+        System.out.println(dto);
+//        return securedService.registerNewUserAccount(dto);
+        return null;
     }
 
     @GetMapping("/all-quizzes")
     public List<Quiz> getAll() {
-        return service.getAllQuizzes();
+        return mainService.getAllQuizzes();
     }
 
     @PostMapping("/create-quiz")
     @ResponseStatus(HttpStatus.CREATED)
     public Quiz createQuiz(@RequestBody Quiz quiz ) {
-        System.out.println(quiz);
-        return service.saveQuiz(quiz);
+        return mainService.saveQuiz(quiz);
     }
 
     @GetMapping("/get-quiz/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Quiz getQuizById(@PathVariable("id") Long id){
-        return service.getQuizById(id);
+        return mainService.getQuizById(id);
     }
 
     @DeleteMapping("/delete-quiz/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") Long id){
-        service.deleteQuizById(id);
+        mainService.deleteQuizById(id);
     }
 
     @PutMapping("/update-quiz/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updateQuiz(@PathVariable("id")Long id, @RequestBody Quiz quiz) {
-        service.updateQuiz(id, quiz);
+        mainService.updateQuiz(id, quiz);
     }
 }

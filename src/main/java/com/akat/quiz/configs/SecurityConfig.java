@@ -3,8 +3,10 @@ package com.akat.quiz.configs;
 import com.akat.quiz.model.security.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -43,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     //Step 3 - configure http requests by roles
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -54,5 +57,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin();
 //                .loginPage("/login").failureUrl("/login-error");
 
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(HttpMethod.POST, "/secured/registration/**");
     }
 }

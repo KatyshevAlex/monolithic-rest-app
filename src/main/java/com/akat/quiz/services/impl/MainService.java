@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 
 @Service("MainService")
 @Profile({"production", "test"})
+@Transactional
 public class MainService implements IMainService {
 
     private final QuizRepo quizRepo;

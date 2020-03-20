@@ -78,8 +78,8 @@ REST запросы из cmd - https://blog.regolit.com/2013/12/16/using-curl-fo
 	curl "localhost:8080/operator-api/test"
 	curl "http://localhost:8081/ivr-service-api/billing/set_pay?msisdn=998909143579&transaction_status=0"
 	POST: 
-		curl -d '{"msisdn":"+79081670638"}' -H "Content-Type: application/json" -X POST "http://127.0.0.1:8094/alice/call/"
-		curl -d '{"resultEnum":"SUCCESS","msisdn":"+79081670638","uuid":"17b00e4c-4f9d-4e6d-89cb-4bf63825f844"}' -H "Content-Type: application/json" -X POST "http://127.0.0.1:8094/alice/call/result"
+		curl -d '{"firstName":"FName","lastName":"Lname","email":"email","password":"pass"}' -H "Content-Type: application/json" -X POST "http://127.0.0.1:8080/quiz/register"
+
 TomCat version: /opt/jdk/bin/java -cp catalina.jar org.apache.catalina.util.ServerInfo
 
 sudo mkdir FolderName

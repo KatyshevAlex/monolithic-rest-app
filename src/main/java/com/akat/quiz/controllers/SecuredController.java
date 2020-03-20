@@ -1,8 +1,7 @@
 package com.akat.quiz.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.akat.quiz.model.security.User;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/secured")
