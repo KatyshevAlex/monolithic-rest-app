@@ -17,7 +17,7 @@ public class Answer {
     String text;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_answer")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_answers")
     @Column(name = "id")
     Long id;
 

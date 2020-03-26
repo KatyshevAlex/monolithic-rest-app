@@ -18,24 +18,15 @@ import java.util.List;
 public class MainController {
 
     private final IMainService mainService;
-    private final ISecurityService securedService;
 
     @Autowired
-    public MainController(IMainService mainService, ISecurityService securedService) {
+    public MainController(IMainService mainService) {
         this.mainService = mainService;
-        this.securedService = securedService;
     }
 
     @GetMapping
     public Quiz test(){
         return mainService.test();
-    }
-
-    @PostMapping("/registration")
-    public User registerUser(@RequestBody String dto) {
-        System.out.println(dto);
-//        return securedService.registerNewUserAccount(dto);
-        return null;
     }
 
     @GetMapping("/all-quizzes")

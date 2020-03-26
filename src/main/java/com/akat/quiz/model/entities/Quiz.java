@@ -15,7 +15,7 @@ import java.util.List;
 public class Quiz {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_quiz")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_quizzes")
     Long id;
 
 

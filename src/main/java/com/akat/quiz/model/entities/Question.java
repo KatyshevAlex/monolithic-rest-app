@@ -15,7 +15,7 @@ import java.util.List;
 @SequenceGenerator(name = "sq_questions", sequenceName = "sq_questions", allocationSize = 1, schema = "quiz")
 public class Question {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_question")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_questions")
     @Column(name = "id")
     Long id;
 

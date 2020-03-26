@@ -3,6 +3,7 @@ package com.akat.quiz.configs;
 import com.akat.quiz.model.security.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.ldap.repository.config.EnableLdapRepositories;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.sql.DataSource;
 
 @EnableWebSecurity
+@EnableLdapRepositories(basePackages = "com.akat.quiz.dao.impl.security.ldap.**")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**How to start using Spring Security
@@ -31,6 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     DataSource dataSource;
 
     //Step 1 - show how to take users
+    /**
+     * Better way is to use LDAP(Lightweight Directory Access Protocol)
+     * https://www.baeldung.com/spring-ldap
+     * https://www.baeldung.com/spring-data-ldap
+     * */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
@@ -45,7 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     //Step 3 - configure http requests by roles
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -56,9 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin();
 //                .loginPage("/login").failureUrl("/login-error");
-
     }
 
+    //Step 4 - show the address where using POST requests is allowed
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(HttpMethod.POST, "/secured/registration/**");
