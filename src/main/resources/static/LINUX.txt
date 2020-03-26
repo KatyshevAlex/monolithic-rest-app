@@ -78,7 +78,7 @@ REST запросы из cmd - https://blog.regolit.com/2013/12/16/using-curl-fo
 	curl "localhost:8080/operator-api/test"
 	curl "http://localhost:8081/ivr-service-api/billing/set_pay?msisdn=998909143579&transaction_status=0"
 	POST: 
-		curl -d '{"firstName":"FName","lastName":"Lname","email":"email","password":"pass"}' -H "Content-Type: application/json" -X POST "http://127.0.0.1:8080/quiz/register"
+		curl -d '{"firstName":"FName","lastName":"Lname","email":"email","password":"pass"}' -H "Content-Type: application/json" -X POST "http://localhost:8080/quiz/register"
 
 TomCat version: /opt/jdk/bin/java -cp catalina.jar org.apache.catalina.util.ServerInfo
 

@@ -23,10 +23,10 @@ public class LdapService implements ILdapService {
         return ldapUserRepo.findByUsernameAndPassword(u, p) != null;
     }
 
-    public void create(String username, String password) {
+    public LdapUser create(String username, String password) {
         LdapUser newUser = new LdapUser(username,digestSHA(password));
         newUser.setId(LdapUtils.emptyLdapName());
-        ldapUserRepo.save(newUser);
+        return ldapUserRepo.save(newUser);
     }
 
     public void modify(String u, String p) {

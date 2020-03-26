@@ -37,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * Better way is to use LDAP(Lightweight Directory Access Protocol)
      * https://www.baeldung.com/spring-ldap
      * https://www.baeldung.com/spring-data-ldap
+     * https://www.baeldung.com/spring-security-ldap
      * */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
