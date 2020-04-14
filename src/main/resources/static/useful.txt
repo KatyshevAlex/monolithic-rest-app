@@ -186,9 +186,13 @@ https://www.baeldung.com/java-nio-2-path
                             .atZone(ZoneId.systemDefault())
                             .toLocalDateTime())
                             .collect(Collectors.toList());
-
-
-
+							
+===========================================================Секундомер / StopWatch=================================================================================
+https://www.baeldung.com/java-measure-elapsed-time
+Instant start = Instant.now();
+// CODE HERE        
+Instant finish = Instant.now();
+long timeElapsed = Duration.between(start, finish).toMillis()
 
 ===========================================================usefull==============================================================================
 //------------reverse / перевернуть
