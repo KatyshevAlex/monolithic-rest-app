@@ -17,7 +17,7 @@ public class MicroserviceController {
     IMicroserviceService microserviceService;
 
     @GetMapping
-    public Quiz crossRequest(){
-        return microserviceService.makeRequest("http://localhost:8081/quiz", Quiz.class);
+    public Quiz asyncRequestWithWebClient(){
+        return microserviceService.makeWebClientRequest("http://localhost:8081/quiz", Quiz.class);
     }
 }
