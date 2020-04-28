@@ -8,12 +8,14 @@ import com.akat.quiz.model.entities.Question;
 import com.akat.quiz.model.entities.Quiz;
 import com.akat.quiz.services.interfaces.IMainService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Service("MainService")
 @Profile({"production", "test"})
@@ -23,6 +25,18 @@ public class MainService implements IMainService {
     private final QuizRepo quizRepo;
     private final QuestionRepo questionRepo;
     private final AnswerRepo answerRepo;
+
+    @Value("${simple.custom.value}")
+    private String customProperties;
+
+    @Value("${some.nonexistent.value: defaultValue}")
+    private String propertiesWithDefaultVal;
+
+    @Value("${list.value}")
+    private List<String> propertiesToList;
+
+    @Value("#{${map.values}}")
+    private Map<String,String> propertiesToMap;
 
 
     @Autowired
